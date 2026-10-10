@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PawGrinch</title>
+<link rel="icon" type="image/png" href="image/profile picture.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+
+body,
+.container,
+.link-btn,
+.hamburger-content{
+    transition:all .4s ease;
+}
+
+.dark{
+    transition:all .4s ease;
+}
+
+.dark .container{
+    box-shadow:
+    0 0 25px rgba(138,77,255,.25),
+    0 0 50px rgba(0,0,0,.5);
+}
+.icon-anim{
+    animation:iconSwitch .35s ease;
+}
+
+@keyframes iconSwitch{
+    0%{
+        transform:rotate(0deg) scale(1);
+        opacity:1;
+    }
+    50%{
+        transform:rotate(180deg) scale(0.5);
+        opacity:0.3;
+    }
+    100%{
+        transform:rotate(360deg) scale(1);
+        opacity:1;
+    }
+}
+
+.music-active{
+    animation:pulse 1.2s infinite;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+:root{
+    --card:rgba(255,255,255,.12);
+    --border:rgba(255,255,255,.15);
+}
+
+.dark{
+    --card:rgba(0,0,0,.35);
+    --border:rgba(255,255,255,.08);
+}
+body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+}
+
+body{
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,.55),
+        rgba(0,0,0,.55)
+    ),
+    url("image/background web.png");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:15px;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+
+    position:relative;
+}
+
+/* Stars */
+
+.stars{
+    position:fixed;
+    inset:0;
+    z-index:-3;
+
+    background-image:
+    radial-gradient(white 1px, transparent 1px);
+
+    background-size:40px 40px;
+
+    opacity:.25;
+
+    animation:starsMove 40s linear infinite;
+}
+
+@keyframes starsMove{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-300px);
+    }
+}
+
+/* Blur */
+
+.blur{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+}
+
+.blur1{
+    width:300px;
+    height:300px;
+    background:#ff4fa1;
+    left:-100px;
+    top:-100px;
+    opacity:.4;
+}
+
+.blur2{
+    width:300px;
+    height:300px;
+    background:#6d7cff;
+    right:-100px;
+    bottom:-100px;
+    opacity:.4;
+}
+
+/* Floating Icons */
+
+.theme-btn,
+.music-btn{
+
+    position:fixed;
+
+    width:50px;
+    height:50px;
+
+    border:none;
+    border-radius:50%;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    background:white;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.25);
+
+    z-index:100;
+
+    transition:.3s;
+}
+
+.theme-btn{
+    top:20px;
+    right:20px;
+}
+
+.music-btn{
+    top:80px;
+    right:20px;
+}
+
+.theme-btn:hover,
+.music-btn:hover{
+    transform:scale(1.1);
+}
+
+/* Music Pulse */
+
+.music-playing{
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        box-shadow:0 0 0 0 rgba(138,77,255,.7);
+    }
+
+    70%{
+        box-shadow:0 0 0 18px rgba(138,77,255,0);
+    }
+
+    100%{
+        box-shadow:0 0 0 0 rgba(138,77,255,0);
+    }
+}
+
+/* Card */
+
+.container{
+
+    width:100%;
+    max-width:520px;
+
+    background:var(--card);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid var(--border);
+
+    border-radius:30px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:
+    0 0 20px rgba(255,79,161,.15),
+    0 0 40px rgba(138,77,255,.15),
+    0 15px 40px rgba(0,0,0,.25);
+}
+
+/* Avatar */
+
+.avatar{
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+    object-fit:cover;
+
+    border:4px solid rgba(255,255,255,.3);
+
+    animation:floatAvatar 4s ease-in-out infinite;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.35);
+}
+
+@keyframes floatAvatar{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+}
+
+/* Title */
+
+h1{
+
+    margin-top:18px;
+
+    font-size:2rem;
+
+    background:linear-gradient(
+        270deg,
+        #ff5eb8,
+        #9d7bff,
+        #6da6ff,
+        #ff5eb8
+    );
+
+    background-size:300% 300%;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:gradientMove 6s ease infinite;
+}
+
+@keyframes gradientMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+.subtitle{
+
+    margin-top:10px;
+
+    color:white;
+
+    opacity:.9;
+}
+
+/* Buttons */
+
+.links{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:18px;
+
+    margin-top:35px;
+}
+
+.link-btn{
+
+    position:relative;
+    overflow:hidden;
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    font-weight:600;
+
+    background:linear-gradient(
+        90deg,
+        #ff4fa1,
+        #8a4dff
+    );
+
+    transition:.3s;
+
+    opacity:0;
+
+    animation:slideUp .8s ease forwards;
+}
+
+.link-btn:nth-child(1){
+    animation-delay:.2s;
+}
+
+.link-btn:nth-child(2){
+    animation-delay:.4s;
+}
+
+.link-btn:nth-child(3){
+    animation-delay:.6s;
+}
+
+@keyframes slideUp{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.link-btn:hover{
+
+    transform:
+    translateY(-5px)
+    scale(1.03);
+
+    box-shadow:
+    0 0 15px #ff4fa1,
+    0 0 30px #8a4dff,
+    0 20px 40px rgba(138,77,255,.45);
+}
+
+.link-btn span{
+    position:absolute;
+    border-radius:50%;
+    transform:scale(0);
+    background:rgba(255,255,255,.5);
+    animation:ripple .6s linear;
+}
+
+@keyframes ripple{
+
+    to{
+        transform:scale(4);
+        opacity:0;
+    }
+}
+
+.footer{
+
+    margin-top:25px;
+
+    color:white;
+
+    opacity:.7;
+}
+
+/* Hamburger Mobile */
+
+.mobile-menu{
+    display:none;
+}
+
+.hamburger-btn{
+
+    width:50px;
+    height:50px;
+
+    border:none;
+    border-radius:50%;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-size:22px;
+
+    position:fixed;
+
+    top:20px;
+    right:20px;
+
+    z-index:999;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.25);
+}
+
+.hamburger-content{
+
+    position:fixed;
+    top:80px;
+    right:20px;
+
+    width:180px;
+
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(15px);
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    z-index:999;
+
+    /* ANIMASI BARU */
+    opacity:0;
+    transform:translateY(-10px);
+    pointer-events:none;
+
+    transition:all .25s ease;
+}
+
+.hamburger-content.show{
+
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+}
+
+.hamburger-content.show .menu-action{
+    transform:translateX(0);
+    opacity:1;
+}
+
+.hamburger-content.show .menu-action:nth-child(1){
+    transition-delay:.05s;
+}
+
+.hamburger-content.show .menu-action:nth-child(2){
+    transition-delay:.1s;
+}
+
+.hamburger-btn{
+    transition:.3s ease;
+}
+
+.hamburger-btn.active{
+    transform:rotate(90deg) scale(1.05);
+}
+.menu-action{
+
+    width:100%;
+    padding:15px;
+
+    border:none;
+    background:none;
+
+    color:white;
+    text-align:left;
+
+    cursor:pointer;
+    font-size:15px;
+
+    /* animasi */
+    transform:translateX(-10px);
+    opacity:0;
+
+    transition:all .3s ease;
+}
+
+
+.menu-action:hover{
+    background:rgba(255,255,255,.1);
+}
+
+@media(max-width:768px){
+
+    .container{
+        padding:25px;
+        max-width:100%;
+    }
+
+    .avatar{
+        width:110px;
+        height:110px;
+    }
+
+    h1{
+        font-size:1.7rem;
+    }
+
+    .subtitle{
+        font-size:.9rem;
+    }
+
+    .link-btn{
+        padding:16px;
+        font-size:15px;
+    }
+
+
+    .theme-btn,
+    .music-btn{
+        display:none;
+    }
+
+
+    .mobile-menu{
+        display:block;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="blur blur1"></div>
+<div class="blur blur2"></div>
+
+<div class="mobile-menu">
+
+    <button class="hamburger-btn" id="hamburgerBtn">
+        ☰
+    </button>
+
+    <div class="hamburger-content" id="hamburgerContent">
+
+        <button class="menu-action" id="mobileThemeBtn">
+            🌙 Dark Mode
+        </button>
+
+        <button class="menu-action" id="mobileMusicBtn">
+            🎵 Music
+        </button>
+
+    </div>
+
+</div>
+
+<button class="theme-btn" id="themeToggle">🌙</button>
+
+<button class="music-btn" id="musicToggle">🎵</button>
+
+<audio id="bgMusic" loop autoplay>
+    <source src="image/obsession.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+    <img
+        src="image/profil.png"
+        alt="PawGrinch"
+        class="avatar"
+    >
+
+    <h1>PawGrinch</h1>
+
+    <p class="subtitle">
+        Gamers • Content Creator • Joki
+    </p>
+
+    <div class="links">
+
+        <a href="https://sociabuzz.com/pawgrinch/tribe"
+           target="_blank"
+           class="link-btn">
+            💖 Support Saya
+        </a>
+
+        <a href=""
+           target="_blank"
+           class="link-btn">
+            🎮 Gabung Discord
+        </a>
+
+       <a href="javascript:void(0)"
+            class="link-btn"
+             onclick="openJoki()">
+            📋 Saran Buat Game
+        </a>
+<!-- JOKI MODAL -->
+<div id="jokiModal" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom w3-round-large" style="max-width:500px; overflow:hidden;">
+
+    <!-- HEADER -->
+    <header class="w3-container w3-black">
+      <span onclick="closeJoki()" 
+            class="w3-button w3-display-topright w3-large">×</span>
+      <h3>PawGrinch</h3>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="w3-container" style="padding:20px; text-align:center;">
+
+      <img src="image/profil.png"
+           style="width:100%; border-radius:15px; margin-bottom:15px;"
+           alt="Joki Genshin">
+
+      <p>🔥 Game Developer</p>
+      <p>⚔️ Music Composer</p>
+      <p>🎯 Web Programmer</p>
+
+      <a href="https://sociabuzz.com/pawgrinch/tribe"
+         target="_blank"
+         class="w3-button w3-purple w3-round-large w3-block"
+         style="margin-top:15px;">
+         💳 Bantu Support & ide game
+      </a>
+
+    </div>
+
+  </div>
+</div>
+    </div>
+
+    <div class="footer">
+        © 2026 PawGrinch
+    </div>
+
+</div>
+
+<script>
+
+// Hamburger Menu
+const hamburgerBtn =
+document.getElementById("hamburgerBtn");
+
+const hamburgerContent =
+document.getElementById("hamburgerContent");
+
+hamburgerBtn.addEventListener("click",()=>{
+
+    hamburgerContent.classList.toggle("show");
+    hamburgerBtn.classList.toggle("active");
+
+});
+// Dark Mode
+const themeBtn =
+document.getElementById("themeToggle");
+
+const mobileThemeBtn =
+document.getElementById("mobileThemeBtn");
+
+function animateIcon(btn){
+    btn.classList.remove("icon-anim");
+    void btn.offsetWidth;
+    btn.classList.add("icon-anim");
+}
+
+function toggleDark(){
+
+    document.body.classList.toggle("dark");
+
+    const isDark = document.body.classList.contains("dark");
+
+    // ICON PC
+    themeBtn.innerHTML = isDark ? "☀️" : "🌙";
+    animateIcon(themeBtn);
+
+    // MOBILE TEXT
+    if(mobileThemeBtn){
+        mobileThemeBtn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+        animateIcon(mobileThemeBtn);
+    }
+}
+
+// PC BUTTON
+themeBtn.addEventListener("click",()=>{
+    toggleDark();
+});
+
+// MOBILE BUTTON
+mobileThemeBtn.addEventListener("click",()=>{
+
+    document.body.style.transform="scale(0.98)";
+
+    setTimeout(()=>{
+        document.body.style.transform="scale(1)";
+    },120);
+
+    toggleDark();
+
+});
+
+// Music
+const music =
+document.getElementById("bgMusic");
+
+const musicBtn =
+document.getElementById("musicToggle");
+
+const mobileMusicBtn =
+document.getElementById("mobileMusicBtn");
+
+let playing = false;
+
+music.volume = 0.4;
+
+function updateMusicUI(){
+
+    if(playing){
+
+        musicBtn.innerHTML="🔊";
+        musicBtn.classList.add("music-playing");
+
+        if(mobileMusicBtn){
+            mobileMusicBtn.classList.add("music-active");
+        }
+
+    }else{
+
+        musicBtn.innerHTML="🎵";
+        musicBtn.classList.remove("music-playing");
+
+        if(mobileMusicBtn){
+            mobileMusicBtn.classList.remove("music-active");
+        }
+    }
+}
+
+musicBtn.addEventListener("click",()=>{
+
+    if(!playing){
+
+        music.play();
+
+        playing=true;
+
+    }else{
+
+        music.pause();
+
+        playing=false;
+    }
+
+    updateMusicUI();
+
+});
+
+// MOBILE MUSIC BUTTON
+
+mobileMusicBtn.addEventListener("click",()=>{
+
+    musicBtn.click();
+
+});
+
+// Mobile Touch + Ripple
+
+document
+.querySelectorAll(".link-btn")
+.forEach(btn=>{
+
+    btn.addEventListener("click",(e)=>{
+
+        if(navigator.vibrate){
+            navigator.vibrate(30);
+        }
+
+        const circle =
+        document.createElement("span");
+
+        const size =
+        Math.max(
+            btn.clientWidth,
+            btn.clientHeight
+        );
+
+        circle.style.width =
+        circle.style.height =
+        size+"px";
+
+        circle.style.left =
+        (e.offsetX-size/2)+"px";
+
+        circle.style.top =
+        (e.offsetY-size/2)+"px";
+
+        btn.appendChild(circle);
+
+        setTimeout(()=>{
+            circle.remove();
+        },600);
+
+    });
+
+});
+
+// OPEN MODAL
+function openJoki(){
+    document.getElementById("jokiModal").style.display = "block";
+}
+
+// CLOSE MODAL
+function closeJoki(){
+    document.getElementById("jokiModal").style.display = "none";
+}
+
+// klik luar modal untuk close
+window.onclick = function(event) {
+    let modal = document.getElementById("jokiModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
